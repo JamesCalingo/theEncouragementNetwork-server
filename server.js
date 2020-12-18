@@ -1,6 +1,7 @@
 const express = require('express')
 const { ApolloServer } = require("apollo-server-express");
 const mongoose = require("mongoose");
+const cors = require ('cors')
 require("dotenv").config();
 
 const dbLink = process.env.mongoLink;
@@ -8,12 +9,13 @@ const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers/messages");
 
 const app = express()
+app.use(cors)
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   cors: {
-    origin: "http://localhost/3000",
+    origin: "*",
     credentials: true
   }
 });
