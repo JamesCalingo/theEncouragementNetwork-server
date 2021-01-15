@@ -29,7 +29,7 @@ server.applyMiddleware({ app })
 const PORT = process.env.PORT || 3001;
 
 mongoose
-  .connect(dbLink, { useNewUrlParser: true })
+  .connect(dbLink, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log("connected to database");
   })
