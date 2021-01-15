@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "node server.js",
-    "serve": "node server.js"
+    "start": "node server2.js",
+    "serve": "node server2.js"
   },
   "dependencies": {
     "apollo-server": "^2.19.0",

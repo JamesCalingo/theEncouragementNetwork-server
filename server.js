@@ -9,7 +9,7 @@ const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers/messages");
 
 const app = express()
-app.use(cors())
+// app.use(cors())
 
 const server = new ApolloServer({
   typeDefs,
