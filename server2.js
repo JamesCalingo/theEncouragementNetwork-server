@@ -3,12 +3,12 @@ const mongoose = require('mongoose');
 require("dotenv").config()
 
 const typeDefs = require('./graphql/typeDefs');
-const resolvers = require('./graphql/resolvers');
+const resolvers = require('./graphql/resolvers/messages');
 const mongoLink = process.env.mongoLink;
 
 const pubsub = new PubSub();
 
-const PORT = process.env.port || 3001;
+const PORT = process.env.port || 4000;
 
 const server = new ApolloServer({
   typeDefs,

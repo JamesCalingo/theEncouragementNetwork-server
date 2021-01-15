@@ -9,16 +9,21 @@ const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers/messages");
 
 const app = express()
-// app.use(cors())
+
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  playground: true,
   cors: {
     origin: "*",
     credentials: true
   }
 });
+
+app.use(cors())
+app.get('/graphql')
+server.applyMiddleware({ app })
 
 const PORT = process.env.PORT || 3001;
 
