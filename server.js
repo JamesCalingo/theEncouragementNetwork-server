@@ -36,8 +36,6 @@ mongoose
   .catch( err => {
     console.log(err)
   });
-
-  server.applyMiddleware({app, path: PORT, cors: false})
   
   app.listen({port: PORT}, () => {
     console.log(`running on ${PORT}`)
