@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const cors = require ('cors')
 require("dotenv").config();
 
-const dbLink = process.env.mongoLink;
+const dbLink = 'mongodb+srv://james:873Y9UWUz8h8SL3g@cluster0.meeoh.mongodb.net/the-encouragement-network?retryWrites=true&w=majority'
 const typeDefs = require("./graphql/typeDefs");
 const resolvers = require("./graphql/resolvers/messages");
 
