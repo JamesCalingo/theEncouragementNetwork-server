@@ -8,6 +8,19 @@ module.exports = gql`
     likes: Int
     flagged: Boolean
   }
+  
+  type User {
+    id: ID!
+    email: String!
+    token: String!
+     
+  }
+  input RegisterInput{
+    email: String!
+    password: String!
+    confirmPW: String!
+
+  }
   type Query {
     getMessages: [Message]
     getMessagesByLikes: [Message]
@@ -15,6 +28,7 @@ module.exports = gql`
   }
 
   type Mutation {
+    register(input: RegisterInput)
     postMessage(body: String!): Message!
     likeMessage(messageID: ID!): Message!
     reportMessage(messageID: ID!): Message!

@@ -1,23 +1,23 @@
-const { ApolloServer, PubSub } = require('apollo-server');
+const { ApolloServer } = require('apollo-server');
 const mongoose = require('mongoose');
 require("dotenv").config()
 
 const typeDefs = require('./graphql/typeDefs');
-const resolvers = require('./graphql/resolvers/messages');
+const resolvers = require('./graphql/resolvers');
 const mongoLink = process.env.mongoLink;
 
-const pubsub = new PubSub();
+
 
 const PORT = process.env.port || 4000;
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => ({ req, pubsub })
+  context: ({ req }) => ({ req })
 });
 
 mongoose
-  .connect(mongoLink, { useNewUrlParser: true })
+  .connect(mongoLink, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('MongoDB Connected');
     return server.listen({ port: PORT });

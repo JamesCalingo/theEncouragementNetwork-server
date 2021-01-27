@@ -1,3 +1,4 @@
+const { AuthenticationError, UserInputError} = require('apollo-server')
 const Message = require("../../models/Message");
 
 module.exports = {
@@ -38,12 +39,15 @@ module.exports = {
     },
   },
   Mutation: {
-    async postMessage(_, { body }) {
+    async postMessage(_, { body }, context) {
+      const user = checkAuth(context)
+
       if (body.trim() === "") {
         throw new Error("Please input a message.");
       }
       const newMessage = new Message({
         body,
+        user: user.id,
         createdAt: new Date().toISOString(),
       });
       const message = await newMessage.save();
