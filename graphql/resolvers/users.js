@@ -1,32 +1,44 @@
 const User = require("../../models/User");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-require("dotenv").config()
+require("dotenv").config();
+const { UserInputError } = require("apollo-server")
+
+const secret = process.env.secret;
 
 module.exports = {
   Mutation: {
     async register(
       _,
-      { registerInput: { email, password, confirmPW } },
-      context,
-      info
-    ) {
-      password = await bcrypt.hash(password, 12)
-
-      const user = new User({email, password, confirmPW})
+      { registration: { email, password, confirmPW } },
       
-      const res = await newUser.save()
+    ) {
+      const user = await User.findOne({email})
 
-      const token = jwt.sign({
-        id: res.id,
-        email: res.email,
-      }, secret, {expiresIn: '30min'} )
+      if(user){
+        throw new UserInputError("This email is in the database already.")
+      }
+
+      password = await bcrypt.hash(password, 12);
+
+      const newUser = new User({ email, password });
+
+      const res = await newUser.save();
+
+      const token = jwt.sign(
+        {
+          id: res.id,
+          email: res.email,
+        },
+        secret,
+        { expiresIn: "30min" }
+      );
 
       return {
-        ...res.doc,
+        ...res._doc,
         id: res._id,
-        token
-      }
+        token,
+      };
     },
   },
 };
