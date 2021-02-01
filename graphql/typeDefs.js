@@ -5,6 +5,7 @@ module.exports = gql`
     id: ID!
     body: String!
     createdAt: String!
+    user: String!
     likes: Int
     flagged: Boolean
   }
@@ -31,6 +32,7 @@ module.exports = gql`
 
   type Mutation {
     register(registration: Registration): User!
+    login(email: String!, password: String!): User!
     postMessage(body: String!): Message!
     likeMessage(messageID: ID!): Message!
     reportMessage(messageID: ID!): Message!
