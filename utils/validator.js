@@ -8,7 +8,7 @@ module.exports.validateRegistration = (email, password, confirmPW) => {
       errors.email = "That is not a valid email address.";
     }
   }
-  if (password.length <= 8) {
+  if (password.length < 8) {
     errors.password = "Your password must be at least eight characters long.";
   }
   if (confirmPW != password) {
@@ -16,7 +16,7 @@ module.exports.validateRegistration = (email, password, confirmPW) => {
   }
   return {
     errors,
-    valid: Object.keys(errors).length,
+    valid: Object.keys(errors).length < 1,
   };
 };
 
@@ -26,11 +26,11 @@ module.exports.validateLogin = (email, password) => {
     errors.login = "Please enter an email and password to continue.";
   }
 
-  if (password.length <= 8) {
+  if (password.length < 8) {
     errors.password = "Your password must be at least eight characters long.";
   }
   return {
     errors,
-    valid: Object.keys(errors).length,
+    valid: Object.keys(errors).length < 1,
   };
 };
